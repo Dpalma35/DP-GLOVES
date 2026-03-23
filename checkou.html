@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Checkout - DP Gloves</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+/* CONTAINER */
+.container{
+max-width:1200px;
+margin:auto;
+padding:40px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+/* TITLES */
+h2{
+margin-bottom:20px;
+}
+
+/* FORM */
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* BOXES */
+.box{
+background:white;
+padding:25px;
+border-radius:10px;
+}
+
+/* CART ITEMS */
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+/* TOTAL */
+.total{
+margin-top:20px;
+font-weight:bold;
+font-size:18px;
+}
+
+/* BUTTON */
+button{
+margin-top:20px;
+width:100%;
+padding:15px;
+background:#111;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#333;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- FORM -->
+<div class="box">
+
+<h2>Dados de Entrega</h2>
+
+<div class="form-group">
+<input type="text" placeholder="Nome completo">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="Morada">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="Cidade">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="Código Postal">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="Telefone">
+</div>
+
+<h2>Método de Pagamento</h2>
+
+<div class="form-group">
+<input type="text" placeholder="Número do cartão">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="MM/AA">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="CVC">
+</div>
+
+<button onclick="finishOrder()">Finalizar Compra</button>
+
+</div>
+
+<!-- CART SUMMARY -->
+<div class="box">
+
+<h2>Resumo da Compra</h2>
+
+<div id="cartItems"></div>
+
+<div class="total" id="total"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function loadCart(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let container=document.getElementById("cartItems");
+let total=0;
+
+container.innerHTML="";
+
+cart.forEach(item=>{
+
+let div=document.createElement("div");
+div.className="cart-item";
+
+div.innerHTML=`
+<span>${item.name} x${item.quantity}</span>
+<span>${(item.price*item.quantity).toFixed(2)}€</span>
+`;
+
+container.appendChild(div);
+
+total+=item.price*item.quantity;
+
+});
+
+document.getElementById("total").textContent="Total: "+total.toFixed(2)+"€";
+
+}
+
+function finishOrder(){
+
+alert("Compra realizada com sucesso!");
+
+localStorage.removeItem("cart");
+
+window.location.href="index.html";
+
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>
+```

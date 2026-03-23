@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novidades - DP Gloves</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+color:#111;
+}
+
+/* HEADER */
+
+header{
+background:#fff;
+padding:20px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+height:160px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img:first-child{
+height:120px;
+}
+
+.logo-text{
+height:150px;
+}
+
+/* SEARCH */
+
+.search{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.search input{
+width:60%;
+padding:14px 25px;
+border-radius:35px;
+border:2px solid #222;
+font-size:14px;
+outline:none;
+}
+
+/* ICONS */
+
+.icons{
+display:flex;
+gap:40px;
+}
+
+.icon-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+cursor:pointer;
+position:relative;
+}
+
+.icon-box svg{
+width:36px;
+height:36px;
+margin-bottom:6px;
+stroke:black;
+stroke-width:2;
+fill:none;
+}
+
+/* CART COUNTER */
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-8px;
+background:#f5a623;
+color:white;
+font-size:12px;
+padding:3px 7px;
+border-radius:50%;
+display:none;
+}
+
+/* NAV */
+
+nav{
+display:flex;
+gap:40px;
+padding:18px 60px;
+background:#fff;
+border-bottom:1px solid #eee;
+position:sticky;
+top:160px;
+z-index:999;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-size:18px;
+}
+
+nav a:hover{
+color:#f5a623;
+}
+
+nav a.promo{
+color:#f5a623;
+}
+
+/* PAGE TITLE */
+
+.page-title{
+text-align:center;
+padding:120px 20px 40px;
+}
+
+.page-title h1{
+font-size:42px;
+}
+
+/* NEWS GRID */
+
+.news-container{
+max-width:1200px;
+margin:auto;
+padding:40px 60px 80px;
+}
+
+.news-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:40px;
+}
+
+/* CARD */
+
+.news-card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+cursor:pointer;
+}
+
+.news-card:hover{
+transform:translateY(-8px);
+}
+
+.news-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.news-content{
+padding:25px;
+}
+
+.news-date{
+font-size:13px;
+color:#888;
+margin-bottom:10px;
+}
+
+.news-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.news-text{
+font-size:15px;
+color:#666;
+line-height:1.6;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logotipo.png">
+<img src="letras.png" class="logo-text">
+</div>
+
+<div class="search">
+<input type="text" placeholder="O que é que procuras ?">
+</div>
+
+<div class="icons">
+
+<div class="icon-box">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+<span>Conta</span>
+</div>
+
+<div class="icon-box" id="cartIcon">
+
+<span class="cart-count" id="cartCount">0</span>
+
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="17" cy="20" r="1.5"/>
+<path d="M3 3h2l3 12h10l3-8H7"/>
+</svg>
+
+<span>Carrinho</span>
+
+</div>
+
+</div>
+
+</header>
+
+<nav>
+<a href="index.html">Página Inicial</a>
+<a href="sobrenos.html">Sobre Nós</a>
+<a href="novidades.html">Novidades</a>
+<a href="luvas.html">Luvas Guarda Redes</a>
+<a href="training.html">Training</a>
+
+<a href="promocoes.html" class="promo">Promoções</a>
+</nav>
+
+<section class="page-title">
+<h1>Novidades</h1>
+</section>
+
+<section class="news-container">
+
+<div class="news-grid">
+
+<div class="news-card">
+<img src="noticia1.jpg">
+<div class="news-content">
+<div class="news-date">9 Março 2026</div>
+<div class="news-title">Ideias para o Dia do Pai</div>
+<div class="news-text">
+Descobre algumas sugestões de equipamento para surpreender qualquer guarda-redes.
+</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="noticia2.jpg">
+<div class="news-content">
+<div class="news-date">3 Março 2026</div>
+<div class="news-title">As chuteiras de Lamine Yamal</div>
+<div class="news-text">
+A nova geração de talento já está a marcar o futebol europeu.
+</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="noticia3.jpg">
+<div class="news-content">
+<div class="news-date">2 Março 2026</div>
+<div class="news-title">As novas chuteiras de Mbappé</div>
+<div class="news-text">
+Velocidade, controlo e estilo em campo com a nova Mercurial.
+</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="noticia4.jpg">
+<div class="news-content">
+<div class="news-date">2 Março 2026</div>
+<div class="news-title">Novo pack DreamRush Puma</div>
+<div class="news-text">
+A Puma apresenta um novo pack cheio de estilo e performance.
+</div>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 DP Gloves
+</footer>
+
+<script>
+
+/* ABRIR CARRINHO */
+
+document.getElementById("cartIcon").addEventListener("click",function(){
+window.location.href="carrinho.html";
+});
+
+/* CONTADOR DO CARRINHO */
+
+function updateCartCount(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let count=0;
+
+cart.forEach(item=>{
+count+=item.quantity;
+});
+
+const badge=document.getElementById("cartCount");
+
+if(count>0){
+badge.style.display="block";
+badge.textContent=count;
+}
+
+}
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>

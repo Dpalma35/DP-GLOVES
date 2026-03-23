@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DP Gloves</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+/* HEADER */
+header{
+background:#fff;
+padding:20px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+height:160px;
+overflow:visible;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img:first-child{
+height:120px;
+}
+
+.logo-text{
+height:150px;
+}
+
+/* SEARCH */
+.search{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.search input{
+width:60%;
+padding:14px 25px;
+border-radius:35px;
+border:2px solid #222;
+font-size:14px;
+outline:none;
+}
+
+/* ICONS */
+.icons{
+display:flex;
+gap:40px;
+}
+
+.icon-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+cursor:pointer;
+color:black;
+position:relative;
+}
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-10px;
+background:#f5a623;
+color:white;
+font-size:12px;
+padding:3px 7px;
+border-radius:50%;
+display:none;
+}
+
+.icon-box svg{
+width:36px;
+height:36px;
+margin-bottom:6px;
+stroke:black;
+stroke-width:2;
+fill:none;
+}
+
+/* NAV */
+nav{
+display:flex;
+gap:40px;
+padding:18px 60px;
+background:#fff;
+border-bottom:1px solid #eee;
+position:sticky;
+top:160px;
+z-index:999;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-size:18px;
+font-weight:500;
+}
+
+nav a.promo{
+color:#f5a623;
+}
+
+nav a:hover{
+color:#f5a623;
+}
+
+/* SLIDER */
+.slider{
+position:relative;
+width:100%;
+height:470px;
+overflow:hidden;
+background:black;
+}
+
+.slider-track{
+display:flex;
+width:200%;
+height:100%;
+transition:transform 1s ease;
+}
+
+.slide{
+width:50%;
+height:100%;
+flex-shrink:0;
+}
+
+.slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center 80%;
+}
+
+/* PRODUCTS */
+.section{
+padding:60px;
+text-align:center;
+}
+
+.section h2{
+margin-bottom:40px;
+font-size:22px;
+letter-spacing:1px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.products a{
+text-decoration:none;
+color:inherit;
+}
+
+.product{
+background:white;
+padding:20px;
+border-radius:8px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.product:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+
+.product img{
+width:100%;
+height:170px;
+object-fit:contain;
+}
+
+.product h4{
+margin:12px 0;
+font-size:15px;
+font-weight:normal;
+}
+
+.price{
+font-weight:bold;
+}
+
+/* RECOMMEND SECTION */
+.recommend{
+display:flex;
+align-items:center;
+gap:40px;
+padding:80px 60px;
+background:#111;
+color:white;
+}
+
+.recommend-text{
+max-width:420px;
+}
+
+.recommend-text h2{
+font-size:34px;
+margin-bottom:20px;
+}
+
+.recommend-text p{
+font-size:16px;
+line-height:1.6;
+}
+
+.recommend-cards{
+display:flex;
+gap:25px;
+}
+
+/* Reorder: Luvas → Camisolas Térmicas → Bolas */
+.recommend-card{
+width:220px;
+height:360px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+transition:0.4s;
+}
+
+.recommend-card:hover{
+transform:translateY(-8px);
+}
+
+.recommend-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.recommend-label{
+position:absolute;
+left:20px;
+top:20px;
+writing-mode:vertical-rl;
+transform:rotate(180deg);
+font-size:28px;
+font-weight:bold;
+}
+
+.arrow{
+position:absolute;
+bottom:20px;
+right:20px;
+width:44px;
+height:44px;
+border:2px solid white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+}
+
+/* NEWS SECTION */
+.news{
+padding:80px 60px;
+background:#f4f4f4;
+}
+
+.news h2{
+text-align:center;
+font-size:36px;
+margin-bottom:60px;
+letter-spacing:2px;
+}
+
+.news-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:40px;
+}
+
+.news-card{
+background:white;
+border-radius:8px;
+overflow:hidden;
+transition:0.3s;
+cursor:pointer;
+}
+
+.news-card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+
+.news-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.news-content{
+padding:20px;
+}
+
+.news-title{
+font-size:20px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.news-text{
+font-size:14px;
+color:#666;
+line-height:1.6;
+margin-bottom:15px;
+}
+
+.news-date{
+font-size:13px;
+color:#888;
+}
+
+/* APP QR SECTION */
+.app-qr{
+padding:80px 20px;
+text-align:center;
+background:#f5f5f5;
+}
+
+.app-qr h2{
+margin-bottom:15px;
+font-size:32px;
+color:#111;
+}
+
+.app-qr p{
+margin-bottom:40px;
+font-size:16px;
+color:#555;
+max-width:600px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.app-qr .qr-container{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:25px;
+}
+
+.app-qr .qr-container img{
+width:220px;
+height:220px;
+padding:15px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+background:white;
+}
+
+.app-qr .qr-container a{
+text-decoration:none;
+background:#111;
+color:white;
+padding:15px 35px;
+font-size:16px;
+border-radius:8px;
+transition:0.3s;
+}
+
+.app-qr .qr-container a:hover{
+background:#333;
+}
+
+/* FOOTER */
+footer{
+margin-top:40px;
+background:#111;
+color:white;
+text-align:center;
+padding:20px;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logotipo.png">
+<img src="letras.png" class="logo-text">
+</div>
+
+<div class="search">
+<input type="text" placeholder="O que é que procuras ?">
+</div>
+
+<div class="icons">
+
+<div class="icon-box" id="accountIcon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+<span>Conta</span>
+</div>
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+
+</div>
+
+<div class="icon-box" id="cartIcon">
+<span class="cart-count" id="cartCount">0</span>
+
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="17" cy="20" r="1.5"/>
+<path d="M3 3h2l3 12h10l3-8H7"/>
+</svg>
+<span>Carrinho</span>
+</div>
+
+</div>
+
+</header>
+
+<nav>
+<a href="index.html">Página Inicial</a>
+  <a href="sobrenos.html">Sobre Nós</a>
+<a href="novidades.html">Novidades</a>
+<a href="luvas.html">Luvas Guarda Redes</a>
+<a href="training.html">Training</a>
+<a href="promocoes.html" class="promo">Promoções</a>
+</nav>
+
+<div class="slider">
+
+<div class="slider-track">
+
+<div class="slide">
+<img src="outdoor.jpg">
+</div>
+
+<div class="slide">
+<img src="ola1.jpg">
+</div>
+
+</div>
+
+</div>
+
+<section class="section">
+
+<h2>O MAIS PROCURADO</h2>
+
+<div class="products">
+
+<a href="produto-branca.html">
+<div class="product">
+<img src="dpglovesbranca.jpg">
+<h4>DP Gloves 1 Branca</h4>
+<div class="price">89,99€</div>
+</div>
+</a>
+
+
+<a href="produto-preta.html">
+<div class="product">
+<img src="dpglovespreta.jpg">
+<h4>DP Gloves 1 Preta</h4>
+<div class="price">89,99€</div>
+</div>
+</a>
+
+<a href="produto-ultragrip.html">
+<div class="product">
+<img src="ultragrip.jpg">
+<h4>DP Gloves Ultra Grip</h4>
+<div class="price">109,99€</div>
+</div>
+</a>
+
+<a href="produto-japao.html">
+<div class="product">
+<img src="japao.jpg">
+<h4>DP Gloves Japão</h4>
+<div class="price">109,99€</div>
+</div>
+</a>
+
+</div>
+
+</section>
+
+<!-- RECOMMEND SECTION ATUALIZADA -->
+<section class="recommend">
+
+<div class="recommend-text">
+<h2>NÃO SABES QUAL ESCOLHER?</h2>
+<p>
+Escolher as luvas, o equipamento ou a bola certa pode fazer toda a diferença em campo.
+De acordo com o teu estilo, o terreno ou as tuas preferências, os nossos recomendadores
+vão ajudar-te a acertar.
+</p>
+</div>
+
+<div class="recommend-cards">
+
+<div class="recommend-card">
+<img src="luvas.jpg">
+<div class="recommend-label">Luvas</div>
+<div class="arrow">→</div>
+</div>
+
+<div class="recommend-card">
+<img src="camisolas.jpg">
+<div class="recommend-label">Equipamento</div>
+<div class="arrow">→</div>
+</div>
+
+<div class="recommend-card">
+<img src="bolas.jpg">
+<div class="recommend-label">Bolas</div>
+<div class="arrow">→</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="news">
+
+<h2>AS ÚLTIMAS NOVIDADES NA @DPGLOVES</h2>
+
+<div class="news-grid">
+
+<div class="news-card">
+<img src="noticia1.jpg">
+<div class="news-content">
+<div class="news-title">
+Como tratar das tuas luvas ft. Courtois
+</div>
+<div class="news-text">
+Aprende a tratar das tuas luvas com um dos melhores, assim durando mais sem danos e com o maximo de grip.
+</div>
+<div class="news-date">9 de março de 2026</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="noticia2.jpg">
+<div class="news-content">
+<div class="news-title">
+Descobre as nossas novas luvas!
+</div>
+<div class="news-text">
+Chegaram as novas tecnologias DP Gloves, agora em Preto e Branco.
+</div>
+<div class="news-date">3 de março de 2026</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="noticia3.jpg">
+<div class="news-content">
+<div class="news-title">
+As novas DP Gloves Japão 
+</div>
+<div class="news-text">
+Perfeitas para relvado sintético, com uma alta durabilidade na palma.
+</div>
+<div class="news-date">2 de março de 2026</div>
+</div>
+</div>
+
+<div class="news-card">
+<img src="sla.jpg">
+<div class="news-content">
+<div class="news-title">
+Escolhe o teu par com os nossos guarda redes
+</div>
+<div class="news-text">
+Cada luva com um tipo de aderencia diferente, com a ajuda dos nossos guarda redes ficas a saber qual a melhor para ti
+</div>
+<div class="news-date">2 de março de 2026</div>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- APP QR CODE SECTION MELHORADA -->
+<section class="app-qr">
+  <h2>Baixa a nossa App!</h2>
+  <p>
+    Descobre ofertas exclusivas, novidades e compra as tuas luvas favoritas diretamente no telemóvel.
+  </p>
+  <div class="qr-container">
+    <img src="codigoqr.webp" alt="QR Code DP Gloves App">
+    <a href="#">Instalar App</a>
+  </div>
+</section>
+
+<footer>
+© 2026 DP Gloves
+</footer>
+
+<script>
+
+const track=document.querySelector('.slider-track');
+const slides=document.querySelectorAll('.slide');
+
+let currentIndex=0;
+
+function nextSlide(){
+
+currentIndex=(currentIndex+1)%slides.length;
+
+track.style.transform=`translateX(-${currentIndex*50}%)`;
+
+}
+
+setInterval(nextSlide,4000);
+
+/* ABRIR CARRINHO */
+
+document.getElementById("cartIcon").addEventListener("click",function(){
+window.location.href="carrinho.html";
+});
+
+document.getElementById("accountIcon").addEventListener("click",function(){
+window.location.href="login.html";
+});
+
+/* CONTADOR DO CARRINHO */
+
+function updateCartCount(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let count=0;
+
+cart.forEach(item=>{
+count+=item.quantity;
+});
+
+const badge=document.getElementById("cartCount");
+
+if(count>0){
+badge.style.display="block";
+badge.textContent=count;
+}else{
+badge.style.display="none";
+}
+
+}
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>

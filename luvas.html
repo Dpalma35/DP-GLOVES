@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Luvas Guarda-Redes - DP Gloves</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+color:#111;
+}
+
+/* HEADER */
+
+header{
+background:#fff;
+padding:20px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+height:160px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img:first-child{
+height:120px;
+}
+
+.logo-text{
+height:150px;
+}
+
+/* SEARCH */
+
+.search{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.search input{
+width:60%;
+padding:14px 25px;
+border-radius:35px;
+border:2px solid #222;
+font-size:14px;
+outline:none;
+}
+
+/* ICONS */
+
+.icons{
+display:flex;
+gap:40px;
+}
+
+.icon-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+cursor:pointer;
+position:relative;
+}
+
+.icon-box svg{
+width:36px;
+height:36px;
+margin-bottom:6px;
+stroke:black;
+stroke-width:2;
+fill:none;
+}
+
+/* CART COUNTER */
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-8px;
+background:#f5a623;
+color:white;
+font-size:12px;
+padding:3px 7px;
+border-radius:50%;
+display:none;
+}
+
+/* NAV */
+
+nav{
+display:flex;
+gap:40px;
+padding:18px 60px;
+background:#fff;
+border-bottom:1px solid #eee;
+position:sticky;
+top:160px;
+z-index:999;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-size:18px;
+}
+
+nav a:hover{
+color:#f5a623;
+}
+
+/* HERO */
+
+.hero{
+height:420px;
+background:
+linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+url("bannerluvas.jpg") center center/cover no-repeat;
+display:flex;
+align-items:flex-end;
+padding:60px;
+color:white;
+font-size:36px;
+font-weight:bold;
+}
+
+/* FILTERS */
+
+.filters{
+max-width:1200px;
+margin:auto;
+padding:40px 60px 10px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.filter{
+padding:10px 18px;
+border:1px solid #ddd;
+border-radius:25px;
+background:white;
+font-size:14px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.filter:hover{
+background:#f5a623;
+color:white;
+border-color:#f5a623;
+}
+
+/* PRODUCTS */
+
+.products{
+max-width:1200px;
+margin:auto;
+padding:30px 60px 80px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:30px;
+}
+
+.products a{
+text-decoration:none;
+color:#111;
+display:block;
+}
+
+.product{
+background:white;
+padding:20px;
+border-radius:12px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.product:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+
+.product img{
+width:100%;
+height:180px;
+object-fit:contain;
+margin-bottom:15px;
+}
+
+.product h4{
+margin-bottom:8px;
+font-size:18px;
+font-weight:600;
+}
+
+.price{
+font-weight:bold;
+font-size:16px;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logotipo.png">
+<img src="letras.png" class="logo-text">
+</div>
+
+<div class="search">
+<input type="text" placeholder="O que é que procuras ?">
+</div>
+
+<div class="icons">
+
+<div class="icon-box">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+<span>Conta</span>
+</div>
+
+<div class="icon-box" id="cartIcon">
+
+<span class="cart-count" id="cartCount">0</span>
+
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="17" cy="20" r="1.5"/>
+<path d="M3 3h2l3 12h10l3-8H7"/>
+</svg>
+
+<span>Carrinho</span>
+
+</div>
+
+</div>
+
+</header>
+
+<nav>
+<a href="index.html">Página Inicial</a>
+<a href="sobrenos.html">Sobre Nós</a>
+<a href="novidades.html">Novidades</a>
+<a href="luvas.html">Luvas Guarda Redes</a>
+<a href="training.html">Training</a>
+
+<a href="promocoes.html">Promoções</a>
+</nav>
+
+<section class="hero">
+LUVAS PROFISSIONAIS PARA GUARDA-REDES
+</section>
+
+<section class="filters">
+
+<div class="filter">Todos</div>
+<div class="filter">Relva Natural</div>
+<div class="filter">Relva Sintética</div>
+<div class="filter">Chuva</div>
+<div class="filter">Treino</div>
+<div class="filter">Promoções</div>
+
+</section>
+
+<section class="products">
+
+<a href="produto-branca.html">
+<div class="product">
+<img src="dpglovesbranca.jpg">
+<h4>DP Gloves 1 Branca</h4>
+<div class="price">89,99€</div>
+</div>
+</a>
+
+<a href="produto-preta.html">
+<div class="product">
+<img src="dpglovespreta.jpg">
+<h4>DP Gloves 1 Preta</h4>
+<div class="price">89,99€</div>
+</div>
+</a>
+
+<a href="produto-ultragrip.html">
+<div class="product">
+<img src="ultragrip.jpg">
+<h4>DP Gloves Ultra Grip</h4>
+<div class="price">109,99€</div>
+</div>
+</a>
+
+<a href="produto-japao.html">
+<div class="product">
+<img src="japao.jpg">
+<h4>DP Gloves Japão</h4>
+<div class="price">109,99€</div>
+</div>
+</a>
+
+</section>
+
+<footer>
+© 2026 DP Gloves
+</footer>
+
+<script>
+
+document.getElementById("cartIcon").addEventListener("click",function(){
+window.location.href="carrinho.html";
+});
+
+function updateCartCount(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let count=0;
+
+cart.forEach(item=>{
+count+=item.quantity;
+});
+
+const badge=document.getElementById("cartCount");
+
+if(count>0){
+badge.style.display="block";
+badge.textContent=count;
+}
+
+}
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
+```
+

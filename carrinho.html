@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrinho - DP Gloves</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+/* HEADER */
+header{
+background:#fff;
+padding:20px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+height:160px;
+overflow:visible;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img:first-child{
+height:120px;
+}
+
+.logo-text{
+height:150px;
+}
+
+/* SEARCH */
+.search{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.search input{
+width:60%;
+padding:14px 25px;
+border-radius:35px;
+border:2px solid #222;
+font-size:14px;
+outline:none;
+}
+
+/* ICONS */
+.icons{
+display:flex;
+gap:40px;
+}
+
+.icon-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+cursor:pointer;
+color:black;
+text-decoration:none;
+}
+
+.icon-box svg{
+width:36px;
+height:36px;
+margin-bottom:6px;
+stroke:black;
+stroke-width:2;
+fill:none;
+}
+
+/* NAV */
+nav{
+display:flex;
+gap:40px;
+padding:18px 60px;
+background:#fff;
+border-bottom:1px solid #eee;
+position:sticky;
+top:160px;
+z-index:999;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-size:18px;
+font-weight:500;
+}
+
+nav a.promo{
+color:#f5a623;
+}
+
+nav a:hover{
+color:#f5a623;
+}
+
+/* CART */
+.cart-container{
+max-width:1200px;
+margin:auto;
+padding:60px;
+display:grid;
+grid-template-columns:1fr 350px;
+gap:60px;
+}
+
+.cart-title{
+font-size:40px;
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.cart-item{
+display:flex;
+gap:30px;
+align-items:center;
+margin-bottom:30px;
+}
+
+.cart-item img{
+width:160px;
+background:#eee;
+padding:20px;
+}
+
+.cart-info h3{
+font-size:26px;
+margin-bottom:10px;
+}
+
+.cart-price{
+font-size:28px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.remove{
+font-size:22px;
+cursor:pointer;
+}
+
+/* SUMMARY */
+.summary{
+background:#fff;
+padding:30px;
+border-radius:10px;
+height:fit-content;
+}
+
+.summary h2{
+margin-bottom:20px;
+}
+
+.summary-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+}
+
+.summary-total{
+display:flex;
+justify-content:space-between;
+font-weight:bold;
+font-size:18px;
+margin-top:20px;
+}
+
+.pay-btn{
+width:100%;
+background:#f5a623;
+border:none;
+padding:16px;
+font-size:18px;
+margin-top:30px;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* MAIS PRODUTOS */
+.more-products{
+margin-top:80px;
+text-align:center;
+}
+
+.more-products h2{
+font-size:32px;
+margin-bottom:40px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:40px;
+}
+
+.product{
+background:white;
+padding:20px;
+border-radius:8px;
+}
+
+.product img{
+width:100%;
+height:160px;
+object-fit:contain;
+}
+
+.product h4{
+margin:10px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logotipo.png">
+<img src="letras.png" class="logo-text">
+</div>
+
+<div class="search">
+<input type="text" placeholder="O que é que procuras ?">
+</div>
+
+<div class="icons">
+
+<div class="icon-box">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+<span>Conta</span>
+</div>
+
+<a href="carrinho.html" class="icon-box">
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="17" cy="20" r="1.5"/>
+<path d="M3 3h2l3 12h10l3-8H7"/>
+</svg>
+<span>Carrinho</span>
+</a>
+
+</div>
+
+</header>
+
+<nav>
+<a href="index.html">Página Inicial</a>
+<a href="sobrenos.html">Sobre Nós</a>
+<a href="novidades.html">Novidades</a>
+<a href="luvas.html">Luvas Guarda Redes</a>
+<a href="training.html">Training</a>
+<a href="#" class="promo">Promoções</a>
+</nav>
+
+<div class="cart-container">
+
+<div>
+
+<div class="cart-title">
+CARRINHO DE COMPRAS
+</div>
+
+<div id="cartItems"></div>
+
+<p style="margin-top:20px">
+Data estimada de envio : <span style="color:#f5a623">Hoje</span>
+</p>
+
+</div>
+
+<div class="summary">
+
+<h2>Resumo</h2>
+
+<hr style="margin:20px 0">
+
+<div class="summary-row">
+<span>Preço total dos produtos</span>
+<span id="productsTotal">0€</span>
+</div>
+
+<div class="summary-row">
+<span>Portes de Envio</span>
+<span>0€</span>
+</div>
+
+<hr style="margin:20px 0">
+
+<div class="summary-total">
+<span>Total a pagar</span>
+<span id="finalTotal">0€</span>
+</div>
+
+<button class="pay-btn" onclick="goToCheckout()">
+PAGAR AGORA
+</button>
+
+</div>
+
+</div>
+
+<div class="more-products">
+
+<h2>MAIS PRODUTOS</h2>
+
+<div class="products">
+
+<div class="product">
+<img src="dpglovesbranca.jpg">
+<h4>DP Gloves 1 Branca</h4>
+<p>89,99€</p>
+</div>
+
+<div class="product">
+<img src="dpglovespreta.jpg">
+<h4>DP Gloves 1 Preta</h4>
+<p>89,99€</p>
+</div>
+
+<div class="product">
+<img src="ultragrip.jpg">
+<h4>DP Gloves Ultra Grip</h4>
+<p>109,99€</p>
+</div>
+
+<div class="product">
+<img src="japao.jpg">
+<h4>DP Gloves Japão</h4>
+<p>109,99€</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartContainer = document.getElementById("cartItems");
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += item.price * item.quantity;
+
+cartContainer.innerHTML += `
+<div class="cart-item">
+<img src="${item.image}">
+<div class="cart-info">
+<div class="cart-price">${item.price}€</div>
+<h3>${item.name}</h3>
+<p>Quantidade : ${item.quantity}</p>
+</div>
+<div class="remove" onclick="removeItem(${index})">✕</div>
+</div>
+`;
+
+});
+
+document.getElementById("productsTotal").textContent = total.toFixed(2) + "€";
+document.getElementById("finalTotal").textContent = total.toFixed(2) + "€";
+
+function removeItem(index){
+cart.splice(index,1);
+localStorage.setItem("cart", JSON.stringify(cart));
+location.reload();
+}
+
+/* NOVA FUNÇÃO */
+function goToCheckout(){
+window.location.href = "checkou.html";
+}
+
+</script>
+
+</body>
+</html>

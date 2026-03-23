@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DP Gloves Japão</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+color:#111;
+}
+
+/* HEADER */
+
+header{
+background:#fff;
+padding:20px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+height:160px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img:first-child{
+height:120px;
+}
+
+.logo-text{
+height:150px;
+}
+
+/* SEARCH */
+
+.search{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.search input{
+width:60%;
+padding:14px 25px;
+border-radius:35px;
+border:2px solid #222;
+font-size:14px;
+outline:none;
+}
+
+/* ICONS */
+
+.icons{
+display:flex;
+gap:40px;
+}
+
+.icon-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:14px;
+cursor:pointer;
+position:relative;
+}
+
+.icon-box svg{
+width:36px;
+height:36px;
+margin-bottom:6px;
+stroke:black;
+stroke-width:2;
+fill:none;
+}
+
+/* CONTADOR DO CARRINHO */
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-8px;
+background:#f5a623;
+color:white;
+font-size:12px;
+padding:3px 7px;
+border-radius:50%;
+display:none;
+}
+
+/* NAV */
+
+nav{
+display:flex;
+gap:40px;
+padding:18px 60px;
+background:#fff;
+border-bottom:1px solid #eee;
+position:sticky;
+top:160px;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-size:18px;
+}
+
+nav a:hover{
+color:#f5a623;
+}
+
+nav a.promo{
+color:#f5a623;
+}
+
+/* PRODUCT LAYOUT */
+
+.product-container{
+max-width:1200px;
+margin:auto;
+padding:60px;
+display:grid;
+grid-template-columns:120px 1fr 450px;
+gap:40px;
+align-items:start;
+}
+
+/* THUMBNAILS */
+
+.thumbs{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.thumbs img{
+width:100%;
+background:white;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.thumbs img:hover{
+transform:scale(1.05);
+}
+
+/* MAIN IMAGE */
+
+.main-image{
+background:white;
+padding:40px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.main-image img{
+max-width:420px;
+width:100%;
+}
+
+/* PRODUCT INFO */
+
+.rating{
+font-size:18px;
+margin-bottom:10px;
+}
+
+.product-info h1{
+font-size:34px;
+font-weight:700;
+margin-bottom:20px;
+}
+
+.price{
+font-size:40px;
+font-weight:bold;
+margin-bottom:30px;
+}
+
+/* OPTIONS */
+
+.options{
+display:flex;
+gap:40px;
+margin-bottom:25px;
+}
+
+.qty-box{
+display:flex;
+background:#eee;
+border-radius:6px;
+overflow:hidden;
+}
+
+.qty-box button{
+width:45px;
+height:45px;
+border:none;
+background:#ddd;
+font-size:20px;
+cursor:pointer;
+}
+
+.qty-box span{
+padding:0 20px;
+display:flex;
+align-items:center;
+font-size:16px;
+}
+
+.size-select select{
+height:45px;
+padding:0 10px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+/* SIZE HELP */
+
+.size-help{
+margin-top:8px;
+font-size:14px;
+color:#777;
+}
+
+/* CUSTOM BUTTON */
+
+.custom-btn{
+width:100%;
+padding:16px;
+border-radius:10px;
+border:2px solid #222;
+background:white;
+font-size:16px;
+margin:20px 0;
+cursor:pointer;
+}
+
+/* BUY ROW */
+
+.buy-row{
+display:flex;
+gap:15px;
+}
+
+/* ADD TO CART */
+
+.buy-btn{
+flex:1;
+background:#f5a623;
+border:none;
+padding:18px;
+font-size:18px;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+}
+
+.buy-btn:hover{
+background:#e4941d;
+}
+
+/* LIKE BUTTON */
+
+.fav-btn{
+width:65px;
+height:65px;
+border-radius:10px;
+border:none;
+background:#e3e3e3;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.fav-btn svg{
+width:28px;
+height:28px;
+stroke:#333;
+stroke-width:2;
+fill:none;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:60px;
+}
+
+/* NOTIFICAÇÃO */
+
+.toast{
+position:fixed;
+bottom:40px;
+right:40px;
+background:#111;
+color:white;
+padding:16px 25px;
+border-radius:10px;
+font-size:16px;
+opacity:0;
+transform:translateY(20px);
+transition:0.3s;
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logotipo.png">
+<img src="letras.png" class="logo-text">
+</div>
+
+<div class="search">
+<input type="text" placeholder="O que é que procuras ?">
+</div>
+
+<div class="icons">
+
+<div class="icon-box">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M5.5 21c1.5-4 11.5-4 13 0"/>
+</svg>
+<span>Conta</span>
+</div>
+
+<div class="icon-box" id="cartIcon">
+
+<span class="cart-count" id="cartCount">0</span>
+
+<svg viewBox="0 0 24 24">
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="17" cy="20" r="1.5"/>
+<path d="M3 3h2l3 12h10l3-8H7"/>
+</svg>
+
+<span>Carrinho</span>
+
+</div>
+
+</div>
+
+</header>
+
+<nav>
+<a href="index.html">Página Inicial</a>
+<a href="sobrenos.html">Sobre Nós</a>
+<a href="novidades.html">Novidades</a>
+<a href="luvas.html">Luvas Guarda Redes</a>
+<a href="training.html">Training</a>
+
+<a href="promocoes.html" class="promo">Promoções</a>
+</nav>
+
+<section class="product-container">
+
+<div class="thumbs">
+<img src="japao.jpg" onclick="changeImage(this)">
+<img src="japao.jpg" onclick="changeImage(this)">
+<img src="japao.jpg" onclick="changeImage(this)">
+</div>
+
+<div class="main-image">
+<img src="japao.jpg" id="mainImage">
+</div>
+
+<div class="product-info">
+
+<div class="rating">
+★★★★★ (2)
+</div>
+
+<h1>DP Gloves Japão</h1>
+
+<div class="price">109,99€</div>
+
+<div class="options">
+
+<div>
+<p>Quantidade</p>
+
+<div class="qty-box">
+<button onclick="changeQty(-1)">−</button>
+<span id="qty">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+
+</div>
+
+<div class="size-select">
+
+<p>Tamanho</p>
+
+<select id="size">
+<option value="">Escolhe o teu tamanho</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+</select>
+
+<div class="size-help">
+Qual é o meu tamanho?
+</div>
+
+</div>
+
+</div>
+
+<button class="custom-btn">
+Personaliza ao teu gosto
+</button>
+
+<div class="buy-row">
+
+<button class="buy-btn" onclick="addToCart()">
+Adicionar ao carrinho
+</button>
+
+<button class="fav-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M20.8 4.6c-1.5-1.5-4-1.5-5.5 0L12 7.9 8.7 4.6c-1.5-1.5-4-1.5-5.5 0-1.5 1.5-1.5 4 0 5.5L12 19l8.8-8.9c1.5-1.5 1.5-4 0-5.5z"/>
+</svg>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 DP Gloves
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+function changeImage(img){
+document.getElementById("mainImage").src = img.src;
+}
+
+let quantity = 1;
+
+function changeQty(value){
+quantity += value;
+if(quantity < 1){ quantity = 1; }
+document.getElementById("qty").textContent = quantity;
+}
+
+document.getElementById("cartIcon").addEventListener("click", function(){
+window.location.href="carrinho.html";
+});
+
+function updateCartCount(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let count = 0;
+
+cart.forEach(item=>{
+count += item.quantity;
+});
+
+const badge = document.getElementById("cartCount");
+
+if(count>0){
+badge.style.display="block";
+badge.textContent=count;
+}
+
+}
+
+updateCartCount();
+
+function addToCart(){
+
+let size=document.getElementById("size").value;
+
+if(size===""){
+showToast("Seleciona um tamanho primeiro");
+return;
+}
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+cart.push({
+name:"DP Gloves Japão",
+price:109.99,
+image:"japao.jpg",
+size:size,
+quantity:quantity
+});
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+updateCartCount();
+
+showToast("Produto adicionado ao carrinho");
+
+}
+
+function showToast(text){
+
+const toast=document.getElementById("toast");
+
+toast.textContent=text;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},3000);
+
+}
+
+</script>
+
+</body>
+</html>
+```
